@@ -1,0 +1,15 @@
+# wave-desktop — code owners (review required on every PR; enforced by branch protection).
+# Layer 0 (Operator) of the WAVE Protocol Plane.
+
+* @wave-av/streaming-team
+
+# Security-sensitive surface: IPC contract, preload bridge, main-process secrets.
+/src/shared/ipc.ts        @wave-av/streaming-team
+/src/preload/             @wave-av/streaming-team
+/src/main/                @wave-av/streaming-team
+/build/                   @wave-av/streaming-team
+
+# Governance / CI / config.
+/.github/                 @wave-av/streaming-team
+/package.json             @wave-av/streaming-team
+/electron.vite.config.ts  @wave-av/streaming-team

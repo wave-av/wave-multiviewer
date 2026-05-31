@@ -1,0 +1,63 @@
+# Inlined mirror of wave-av/wave-foundation/.github/workflows/checks.yml@v1
+# (sha pinned in .foundation-version). Reusable foundation gate — secret-scan
+# + file-size guard + (here) vendor-binary deny-list.
+
+name: foundation checks
+
+on:
+  workflow_call:
+    inputs:
+      max_lines:
+        type: number
+        default: 800
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+
+      - name: Secret scan (fail-closed, allowlist-aware)
+        run: |
+          HITS=$(grep -rIEn '(sk-[A-Za-z0-9]{20}|sk_(live|test)_[A-Za-z0-9]{20}|npm_[A-Za-z0-9]{30}|sbp_[a-f0-9]{40}|github_pat_[A-Za-z0-9_]{40}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30}|AIzaSy[A-Za-z0-9_-]{20}|xai-[A-Za-z0-9]{40}|xoxb-[A-Za-z0-9-]+|-----BEGIN [A-Z ]*PRIVATE KEY)' \
+            --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=out --exclude-dir=release \
+            --exclude='*.lock' --exclude='package-lock.json' \
+            . | grep -v 'pragma: allowlist secret' || true)
+          if [ -n "$HITS" ]; then echo "$HITS"; echo "::error::secret pattern detected"; exit 1; fi
+
+      - name: Vendor-binary deny-list (DAL / NDI / Dante)
+        run: |
+          # Per CONTRIBUTING.md license-boundary rule: never commit libdal,
+          # libndi, NDI Advanced, or dante_activator artifacts.
+          HITS=$(find . \
+            \( -name 'libdal*' -o -name 'libndi*' -o -name 'dante_activator' \
+               -o -name 'Processing.NDI.Lib*' -o -name '*.aax' \) \
+            -not -path './node_modules/*' -not -path './.git/*' -print)
+          if [ -n "$HITS" ]; then echo "$HITS"; echo "::error::vendor-licensed binary committed; see CONTRIBUTING.md"; exit 1; fi
+
+      - name: File-size guard
+        env: { MAX_LINES: "${{ inputs.max_lines }}" }
+        run: |
+          BAD=$(find . -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.jsx' \) \
+            -not -path './node_modules/*' -not -path './out/*' -not -path './release/*' -not -path './.git/*' \
+            -exec sh -c 'lines=$(wc -l < "$1"); [ "$lines" -gt "$MAX_LINES" ] && echo "$1: $lines"' _ {} \;)
+          if [ -n "$BAD" ]; then echo "$BAD"; echo "::error::file exceeds ${MAX_LINES} lines"; exit 1; fi
+
+  build:
+    runs-on: macos-14
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci --no-audit --no-fund
+      - run: npm run type-check
+      - run: npm run build

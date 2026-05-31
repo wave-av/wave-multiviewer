@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Audio + video capture for encoder sources (camera, mic, screen). -->
+  <key>com.apple.security.device.camera</key>
+  <true/>
+  <key>com.apple.security.device.audio-input</key>
+  <true/>
+  <!-- Outbound network for gateway / SRT / NDI / Dante. -->
+  <key>com.apple.security.network.client</key>
+  <true/>
+  <!-- mDNS / NDI discovery + Dante AES67 SAP multicast on the LAN. -->
+  <key>com.apple.security.network.server</key>
+  <true/>
+  <!-- JIT-compiled JS in the renderer (V8). -->
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+  <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+  <true/>
+</dict>
+</plist>

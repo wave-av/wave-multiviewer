@@ -1,0 +1,69 @@
+{
+  "name": "wave-multiviewer",
+  "version": "0.1.0",
+  "description": "On-prem 4x4 / 9x9 / 16x16 multiview receiver for WAVE feeds + LAN NDI sources, with optional WebRTC push to wave-realtime-edge",
+  "main": "./out/main/index.js",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://wave.online/build",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wave-av/wave-multiviewer.git"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "type-check": "tsc --noEmit && tsc -p electron/tsconfig.node.json --noEmit",
+    "test": "vitest run",
+    "pack": "electron-vite build && electron-builder --dir",
+    "dist": "electron-vite build && electron-builder",
+    "dist:mac": "electron-vite build && electron-builder --mac",
+    "dist:win": "electron-vite build && electron-builder --win",
+    "dist:linux": "electron-vite build && electron-builder --linux"
+  },
+  "dependencies": {
+    "@wave-av/sdk": "^2.0.14",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/utils": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^3.0.0",
+    "tailwindcss": "^4.0.14",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^4.0.18"
+  },
+  "build": {
+    "appId": "online.wave.multiviewer",
+    "productName": "WAVE Multiviewer",
+    "copyright": "Copyright © 2026 WAVE Online LLC",
+    "files": ["out/**/*", "package.json"],
+    "mac": {
+      "category": "public.app-category.video",
+      "icon": "resources/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": false,
+      "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }]
+    },
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }] },
+    "linux": { "target": [{ "target": "AppImage", "arch": ["x64"] }], "category": "AudioVideo" },
+    "directories": { "output": "release" },
+    "publish": null
+  }
+}
