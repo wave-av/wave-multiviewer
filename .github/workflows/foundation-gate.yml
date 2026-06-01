@@ -1,0 +1,22 @@
+# foundation-gate.yml — runs the shared wave-foundation gate (secret-scan + file-size + skill-validate).
+#
+# This repo is PUBLIC; wave-av/wave-foundation is PRIVATE, and GitHub Actions does NOT allow a public
+# repo to consume a private repo's reusable workflow. So the executable gate is vendored verbatim at
+# ./.github/workflows/_checks.yml (mirrors wave-foundation/.github/workflows/checks.yml@v1). Keep the
+# two byte-synced on every v1.x bump — this is the one path where consume-not-copy is structurally
+# impossible. `.foundation-version` pins the major (v1).
+name: foundation-gate
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    uses: ./.github/workflows/_checks.yml
+    with:
+      max_lines: 800
