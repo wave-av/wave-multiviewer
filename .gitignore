@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnp.*
+
+# build output
+out/
+dist/
+release/
+*.tsbuildinfo
+
+# electron-builder + electron-vite
+.electron-vite-cache/
+
+# native modules / vendored binaries (license-gated; NEVER commit)
+resources/dal/
+resources/ndi/
+resources/ndi-advanced/
+resources/dante-activator
+*.dylib
+*.so
+*.dll
+
+# secrets / credentials (defense-in-depth; primary path is OS secure storage)
+.env
+.env.*
+!.env.example
+*.cookie.txt
+
+# editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# logs
+*.log
+npm-debug.log*
+
+# test
+coverage/
