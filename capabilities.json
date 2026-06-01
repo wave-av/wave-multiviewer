@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1",
+  "repo": "wave-av/wave-multiviewer",
+  "version": "0.2.0",
+  "lifecycle": "alpha",
+  "planeLayer": 0,
+  "foundationPin": "v1",
+  "maintainers": [{ "team": "operator" }],
+  "exposes": {
+    "renderSurfaces": [{ "kind": "electron-app", "id": "online.wave.multiviewer" }]
+  },
+  "consumes": {
+    "waveProducts": [
+      { "repo": "wave-av/wave-gateway", "endpoint": "/feed/{slug}" },
+      { "repo": "wave-av/wave-realtime-edge", "endpoint": "/whip" }
+    ],
+    "thirdParty": [
+      { "service": "stun.l.google.com", "licenseGated": false },
+      { "service": "vizrt-ndi", "licenseGated": true },
+      { "service": "audinate-dante", "licenseGated": true }
+    ],
+    "foundationFrameworks": ["frameworks/protocol-plane", "frameworks/platform-registry"]
+  },
+  "events": {
+    "publishes": [
+      { "topic": "multiview.tile.connection.failed", "transport": "sentry" }
+    ]
+  },
+  "tags": ["operator", "public", "viewer", "grid", "ndi", "dante", "on-prem", "build-on-wave"]
+}
