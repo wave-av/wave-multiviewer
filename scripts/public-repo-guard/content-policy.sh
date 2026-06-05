@@ -53,14 +53,17 @@ check() {
   if (( rc >= 2 )); then
     echo "::error title=public-repo-guard ($name)::ripgrep failed (exit $rc) scanning rule '$name' — failing closed."; exit 2
   fi
-  # Only the documented inline form `# guard:allow <reason>` suppresses a hit — a
-  # bare 'guard:allow' substring elsewhere on the line must NOT bypass detection.
+  # Only the documented inline form `# guard:allow <reason>` suppresses a hit, and
+  # the reason is mandatory (non-space after the marker) — a bare marker, or the
+  # string appearing elsewhere on the line, must NOT bypass detection.
   local matches
-  matches="$(printf '%s' "$raw" | grep -vE '#[[:space:]]*guard:allow' || true)"
+  matches="$(printf '%s' "$raw" | grep -vE '#[[:space:]]*guard:allow[[:space:]]+[^[:space:]]' || true)"
   [[ -z "$matches" ]] && return 0
   local count; count="$(printf '%s\n' "$matches" | grep -c '' )"
   echo "::group::[$sev] $name — $why"
-  printf '%s\n' "$matches"
+  # Print only file:line — NEVER the matched content. On a public repo the Actions
+  # log is public, so echoing the detected value would re-leak the secret itself.
+  printf '%s\n' "$matches" | sed -E 's/^([^:]+:[0-9]+):.*/\1: «match redacted — open this location to view»/'
   echo "::endgroup::"
   if [[ "$sev" == "BLOCK" ]]; then
     echo "::error title=public-repo-guard ($name)::$why — $count occurrence(s). Remove it, or annotate the line with '# guard:allow <reason>' if it is a verified-safe example."
