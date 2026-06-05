@@ -44,8 +44,19 @@ fi
 check() {
   local sev="$1" name="$2" re="$3" why="$4"
   [[ -z "$re" ]] && { echo "::error::content-policy: internal bug — empty regex for rule '$name'"; exit 2; }
+  # --hidden + --no-ignore-vcs so the scan covers dotfiles/dotdirs (.github/**,
+  # .npmrc, …) and committed-but-gitignored files — a public leak hides there too.
+  # rg exit: 0=match, 1=no match, >=2=real error → FAIL CLOSED (never pass a gate
+  # silently because the scanner errored).
+  local raw rc
+  raw="$(rg -nP --hidden --no-ignore-vcs "${IGNORE[@]}" -- "$re" . 2>/dev/null)"; rc=$?
+  if (( rc >= 2 )); then
+    echo "::error title=public-repo-guard ($name)::ripgrep failed (exit $rc) scanning rule '$name' — failing closed."; exit 2
+  fi
+  # Only the documented inline form `# guard:allow <reason>` suppresses a hit — a
+  # bare 'guard:allow' substring elsewhere on the line must NOT bypass detection.
   local matches
-  matches="$(rg -nP "${IGNORE[@]}" -- "$re" . 2>/dev/null | grep -v 'guard:allow' || true)"
+  matches="$(printf '%s' "$raw" | grep -vE '#[[:space:]]*guard:allow' || true)"
   [[ -z "$matches" ]] && return 0
   local count; count="$(printf '%s\n' "$matches" | grep -c '' )"
   echo "::group::[$sev] $name — $why"
@@ -68,7 +79,7 @@ check WARN  stripe-object    '(cus|sub|price|prod)_[A-Za-z0-9]{14,}'            
 check BLOCK cf-account-id    'account_id\s*[:=]\s*["'"'"']?[0-9a-f]{32}'          'Hardcoded Cloudflare account_id — source it from $CLOUDFLARE_ACCOUNT_ID'
 
 # --- Developer / private-repo leakage ----------------------------------------
-check BLOCK abs-user-path    '/(Users|home)/[a-z][a-z0-9._-]+/'                   'Hardcoded developer absolute path — use $HOME or a CLI argument'
+check BLOCK abs-user-path    '/(Users|home)/(?!runner/)[a-z][a-z0-9._-]+/'        'Hardcoded developer absolute path — use $HOME or a CLI argument'
 
 # Private WAVE repo/product names that must never appear in a public tree. The
 # names are NOT hardcoded here (this file is itself public) — they are supplied
@@ -78,7 +89,10 @@ if [[ -n "${GUARD_PRIVATE_REPOS:-}" ]]; then
   IFS=', ' read -r -a _PRIV <<< "$GUARD_PRIVATE_REPOS"
   for _name in "${_PRIV[@]}"; do
     [[ -z "$_name" ]] && continue
-    check BLOCK private-repo "\\b${_name}\\b" 'Reference to a private WAVE repo/product (configured via GUARD_PRIVATE_REPOS) — keep out of public'
+    # Regex-escape the name so metacharacters in a repo name (., -, etc.) match
+    # literally rather than changing the pattern's meaning.
+    _esc="$(printf '%s' "$_name" | sed -E 's/[][(){}.^$*+?|\\]/\\&/g')"
+    check BLOCK private-repo "\\b${_esc}\\b" 'Reference to a private WAVE repo/product (configured via GUARD_PRIVATE_REPOS) — keep out of public'
   done
 fi
 
@@ -91,14 +105,16 @@ check BLOCK private-key      '-----BEGIN [A-Z ]*PRIVATE KEY-----'               
 
 # --- Committed dotenv (real env, not templates) ------------------------------
 # List candidate files with the SAME ignore filtering as check() so .guardignore
-# and the standard excludes apply to this BLOCK rule too. Include-globs come first
-# (restrict to dotenv basenames at any depth), then the IGNORE excludes (last match
-# wins, so a .env under e.g. node_modules stays excluded). --hidden is required
-# because these are dotfiles; --no-ignore-vcs ensures a committed-but-gitignored
-# .env is still caught.
-ENVHITS="$(rg --files --hidden --no-ignore-vcs \
-  -g '.env' -g '.env.local' -g '.env.production' -g '.env.prod' -g '.env.staging' \
-  "${IGNORE[@]}" 2>/dev/null || true)"
+# and the standard excludes apply to this BLOCK rule too. Match `.env` plus any
+# `.env.*` variant (development, test, …), then drop template forms. Include-globs
+# come first; the IGNORE excludes come last (last match wins, so a .env under e.g.
+# node_modules stays excluded). --hidden because these are dotfiles; --no-ignore-vcs
+# so a committed-but-gitignored .env is still caught; fail CLOSED on rg error.
+_envraw="$(rg --files --hidden --no-ignore-vcs -g '.env' -g '.env.*' "${IGNORE[@]}" 2>/dev/null)"; _envrc=$?
+if (( _envrc >= 2 )); then
+  echo "::error title=public-repo-guard (committed-dotenv)::ripgrep failed (exit $_envrc) — failing closed."; exit 2
+fi
+ENVHITS="$(printf '%s\n' "$_envraw" | grep -vE '\.(example|sample|template|dist)$' | grep -vE '^$' || true)"
 if [[ -n "$ENVHITS" ]]; then
   echo "::group::[BLOCK] committed-dotenv — real .env files must not be committed"
   printf '%s\n' "$ENVHITS"
