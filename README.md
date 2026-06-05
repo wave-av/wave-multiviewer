@@ -47,3 +47,8 @@ Same as wave-desktop and wave-monitor: Electron 34 + electron-vite + React 19 + 
 | W4 | Multiview composite → WebRTC push to wave-realtime-edge | pending |
 
 [plane]: https://github.com/wave-av/wave-foundation/blob/master/frameworks/protocol-plane/README.md
+
+---
+
+<!-- wave-standard-footer -->
+<sub><b><a href="https://wave.online">wave.online</a></b> &nbsp;·&nbsp; <a href="https://docs.wave.online">Docs</a> &nbsp;·&nbsp; <a href="https://dev.wave.online">Developers</a> &nbsp;·&nbsp; <a href="https://agents.wave.online">For agents</a></sub>
