@@ -1,9 +1,11 @@
 # Canonical gitleaks config for WAVE public repos.
 #
-# The org-level public-repo-guard workflow fetches this file and runs gitleaks
-# against the PR tree. It extends gitleaks' built-in rule set (which already
-# covers Stripe, AWS, GitHub, Slack, private keys, etc.) and adds an allowlist
-# so obvious placeholders / fixtures / examples do not produce false BLOCKs.
+# This file is VENDORED into each repo alongside the public-repo-guard workflow,
+# which runs `gitleaks detect --no-git --source . --config .gitleaks.toml` over the
+# checked-out tree. It extends gitleaks' built-in rule set (which already covers
+# Stripe, AWS, GitHub, Slack, private keys, etc.) and adds an allowlist so obvious
+# placeholders / fixtures / examples do not produce false BLOCKs. A repo may extend
+# this with its own rules, but should not weaken the credential patterns.
 #
 # Pair this with scripts/public-repo-guard/content-policy.sh, which catches the
 # WAVE-specific things gitleaks does NOT: live Stripe account IDs, hardcoded CF
@@ -18,6 +20,7 @@ description = "Placeholders, templates, and test fixtures that are not real secr
 
 # Paths that are documentation examples or test fixtures by construction.
 paths = [
+  '''(^|/)\.git/''',                  # git metadata (packed-refs, objects) — not source, avoids --no-git FPs
   '''(^|/)\.gitleaks\.toml$''',
   '''(^|/)scripts/public-repo-guard/''',
   '''(^|/)(test|tests|__tests__|fixtures|__fixtures__|examples?|samples?|spec)/''',
