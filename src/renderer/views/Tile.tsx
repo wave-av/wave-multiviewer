@@ -70,7 +70,7 @@ export function Tile({ tile, pinned, enabled, onClick }: Props): React.JSX.Eleme
           }
         }
         setStatus('live');
-      } catch (err) {
+      } catch {
         if (!cancelled) setStatus('error');
         conn?.close();
       }

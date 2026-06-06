@@ -15,6 +15,7 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
+    "lint": "eslint . --max-warnings 0",
     "type-check": "tsc --noEmit && tsc -p electron/tsconfig.node.json --noEmit",
     "test": "vitest run",
     "pack": "electron-vite build && electron-builder --dir",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^22.13.5",
     "@types/react": "^19.0.10",
@@ -41,8 +43,11 @@
     "electron": "^39.8.10",
     "electron-builder": "^26.8.1",
     "electron-vite": "^5.0.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "tailwindcss": "^4.3.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.60.1",
     "vite": "^7.0.0",
     "vitest": "^4.1.8"
   },
