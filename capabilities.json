@@ -11,7 +11,7 @@
   },
   "consumes": {
     "waveProducts": [
-      { "repo": "wave-av/wave-gateway", "endpoint": "/feed/{slug}" },
+      { "repo": "wave-av/api-gateway", "endpoint": "/feed/{slug}" },
       { "repo": "wave-av/wave-realtime-edge", "endpoint": "/whip" }
     ],
     "thirdParty": [
