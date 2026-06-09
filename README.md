@@ -11,7 +11,7 @@ Layer 0 of the [WAVE Protocol Plane][plane]. Replaces TVU MV-series / Newtek MV 
 | 4×4 / 9×9 / 16×16 grid | Layout switcher + program-pin clickable tiles | W1 (shipped) |
 | WAVE feed tiles | Source binding through Zod-validated IPC | W2 wires the real WebRTC peer connections |
 | LAN NDI tiles | Source schema | W2 wires libndi via wave-agent on the same machine |
-| Dante audio-only meters | Schema + UI placeholder | W3 wires AES67 fallback from wave-transports/dante |
+| Dante audio-only meters | Schema + UI placeholder | W3 wires AES67 fallback for Dante audio |
 | Cloud push of multiview | Toggle in UI | W4 wires WebRTC track to wave-realtime-edge |
 
 ## Stack
@@ -43,7 +43,7 @@ Same as wave-desktop and wave-monitor: Electron 34 + electron-vite + React 19 + 
 |---|---|---|
 | W1 | This scaffold (Electron shell + IPC + grid UI placeholder) | shipped |
 | W2 | Real WebRTC feed binding per tile via @wave-av/sdk | next |
-| W3 | Dante audio meters via wave-transports/dante AES67 fallback | pending |
+| W3 | Dante audio meters via AES67 fallback | pending |
 | W4 | Multiview composite → WebRTC push to wave-realtime-edge | pending |
 
 [plane]: https://github.com/wave-av/wave-foundation/blob/master/frameworks/protocol-plane/README.md
