@@ -1,6 +1,9 @@
 @import 'tailwindcss';
+@import '@wave-av/ui/tokens.css';
+@config '../../tailwind.config.ts';
 
 :root {
+  /* Per-app accent (multiviewer operator console) — overrides SSOT default. */
   --wave-accent: oklch(0.78 0.16 217);
   color-scheme: dark;
 }

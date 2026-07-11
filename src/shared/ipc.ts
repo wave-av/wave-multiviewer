@@ -47,6 +47,66 @@ export const PinProgramRequestSchema = z.object({
 });
 export type PinProgramRequest = z.infer<typeof PinProgramRequestSchema>;
 
+// ── device control (E-CONTROL — WAVE Device Control Protocol v1) ────────────
+// Envelope + commands are FROZEN (see gateway `/v1/crest/control`). The
+// renderer never talks to the gateway directly — main holds the bearer
+// token (from WAVE_GATEWAY_KEY) and forwards. Outcomes (incl. 503 "not
+// armed" / 403 / 400) are surfaced verbatim to the renderer; we never
+// synthesize success.
+
+export const CrestCommandSchema = z.discriminatedUnion('cmd', [
+  z.object({
+    cmd: z.literal('stream.start'),
+    args: z.object({
+      transport: z.enum(['moq', '2110']).optional(),
+      destination: z.string().optional(),
+    }),
+  }),
+  z.object({ cmd: z.literal('stream.stop'), args: z.object({}) }),
+  z.object({ cmd: z.literal('captions.on'), args: z.object({}) }),
+  z.object({ cmd: z.literal('captions.off'), args: z.object({}) }),
+  z.object({
+    cmd: z.literal('settings.set'),
+    args: z.object({
+      codec: z.enum(['h264', 'h265']).optional(),
+      bitrate: z.number().int().positive().optional(),
+      width: z.number().int().positive().optional(),
+      height: z.number().int().positive().optional(),
+      fps: z.number().int().min(1).max(240).optional(),
+      transport: z.enum(['moq', '2110']).optional(),
+      destination: z.string().optional(),
+    }),
+  }),
+  z.object({ cmd: z.literal('settings.get'), args: z.object({}) }),
+  z.object({ cmd: z.literal('state.get'), args: z.object({}) }),
+]);
+export type CrestCommand = z.infer<typeof CrestCommandSchema>;
+
+export const CrestControlRequestSchema = z.object({
+  org: z.string().min(1),
+  device: z.string().min(1),
+  command: CrestCommandSchema,
+});
+export type CrestControlRequest = z.infer<typeof CrestControlRequestSchema>;
+
+/**
+ * Outcome of a control POST / state GET. We never collapse a non-2xx into a
+ * thrown error the renderer has to string-match — `ok: false` carries the
+ * real HTTP status + gateway body so the UI can show e.g. "503 control
+ * bridge not armed" honestly instead of a generic failure toast.
+ */
+export const CrestResultSchema = z.discriminatedUnion('ok', [
+  z.object({ ok: z.literal(true), status: z.number().int(), body: z.unknown() }),
+  z.object({ ok: z.literal(false), status: z.number().int(), body: z.unknown(), message: z.string() }),
+]);
+export type CrestResult = z.infer<typeof CrestResultSchema>;
+
+export const CrestStateRequestSchema = z.object({
+  org: z.string().min(1),
+  device: z.string().min(1),
+});
+export type CrestStateRequest = z.infer<typeof CrestStateRequestSchema>;
+
 export const IPC = {
   multiviewState: 'wave:mv:state',
   layoutSet: 'wave:mv:layout-set',
@@ -54,6 +114,8 @@ export const IPC = {
   programPin: 'wave:mv:program-pin',
   cloudPushStart: 'wave:mv:cloud-push-start',
   cloudPushStop: 'wave:mv:cloud-push-stop',
+  crestControl: 'wave:crest:control',
+  crestState: 'wave:crest:state',
 } as const;
 export type IpcChannel = (typeof IPC)[keyof typeof IPC];
 
