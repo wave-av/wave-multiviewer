@@ -34,7 +34,9 @@ export function App(): React.JSX.Element {
         className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950 px-4 py-2"
         style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
       >
-        <span className="text-sm font-semibold tracking-wide">WAVE Multiviewer</span>
+        <span className="text-sm font-semibold tracking-wide">
+          <b className="wm">WAVE</b> Multiviewer
+        </span>
         <span className="text-xs text-zinc-500">
           {state ? `${state.layout} · ${state.tiles.length} tiles` : 'loading'}
         </span>
