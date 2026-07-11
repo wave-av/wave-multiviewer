@@ -5,12 +5,15 @@ on:
   pull_request:
 permissions:
   contents: read
+  packages: read
 concurrency:
   group: lint-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
@@ -19,6 +22,10 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+      # @wave-av/ui + @wave-av/sdk resolve from GitHub Packages — auth the scope before install
+      # (mirrors governance-enforce.yml). NODE_AUTH_TOKEN is the job-scoped GITHUB_TOKEN (packages:read).
+      - name: auth to GitHub Packages for the @wave-av scope
+        run: printf '@wave-av:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}\n' > .npmrc
       - run: npm ci
       - run: npm run lint
       - run: npm run type-check
