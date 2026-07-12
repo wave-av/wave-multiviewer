@@ -22,6 +22,9 @@ interface WaveBridge {
     control(org: string, device: string, command: CrestCommand): Promise<CrestResult>;
     state(org: string, device: string): Promise<CrestResult>;
   };
+  ui: {
+    openDeviceControl(): Promise<void>;
+  };
 }
 
 declare global {

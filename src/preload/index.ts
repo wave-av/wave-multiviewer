@@ -22,6 +22,10 @@ const wave = {
     cloudPushStart: (): Promise<MultiviewState> => ipcRenderer.invoke(IPC.cloudPushStart),
     cloudPushStop: (): Promise<MultiviewState> => ipcRenderer.invoke(IPC.cloudPushStop),
   },
+  ui: {
+    /** Opens the web-always Mesh device-control page in the OS browser. */
+    openDeviceControl: (): Promise<void> => ipcRenderer.invoke(IPC.uiOpenDeviceControl),
+  },
   crest: {
     /** Sends a WAVE Device Control Protocol v1 command through the gateway. */
     control: async (org: string, device: string, command: CrestCommand): Promise<CrestResult> => {

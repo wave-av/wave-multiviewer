@@ -1,4 +1,4 @@
-import { ipcMain, type IpcMainInvokeEvent } from 'electron';
+import { ipcMain, shell, type IpcMainInvokeEvent } from 'electron';
 import {
   IPC,
   GridLayoutSchema,
@@ -10,6 +10,7 @@ import {
   CrestControlRequestSchema,
   CrestStateRequestSchema,
   type CrestResult,
+  DEVICE_CONTROL_URL,
 } from '@shared/ipc';
 import { buildCrestEnvelope } from './control-plane/crest-envelope';
 
@@ -72,6 +73,14 @@ export function registerIpcHandlers(): void {
   ipcMain.handle(IPC.cloudPushStop, (): MultiviewState => {
     state = { ...state, cloudPushActive: false };
     return state;
+  });
+
+  // ── deep links (E-CONTROL #78b) ─────────────────────────────────────────
+  // Opens the web-always Mesh device-control page in the OS browser. URL is
+  // a hardcoded shared constant, never renderer input, so this cannot be
+  // used to openExternal an arbitrary/attacker-controlled URL.
+  ipcMain.handle(IPC.uiOpenDeviceControl, (): void => {
+    void shell.openExternal(DEVICE_CONTROL_URL);
   });
 
   // ── device control (E-CONTROL) ──────────────────────────────────────────
