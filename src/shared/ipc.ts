@@ -116,8 +116,15 @@ export const IPC = {
   cloudPushStop: 'wave:mv:cloud-push-stop',
   crestControl: 'wave:crest:control',
   crestState: 'wave:crest:state',
+  uiOpenDeviceControl: 'wave:ui:open-device-control',
 } as const;
 export type IpcChannel = (typeof IPC)[keyof typeof IPC];
+
+// ── deep links (E-CONTROL #78b) ─────────────────────────────────────────────
+// Single source of truth for the web-always Mesh device-control surface.
+// Main opens this via shell.openExternal — it is a hardcoded constant, never
+// renderer-supplied input, so there is no arbitrary-URL openExternal risk.
+export const DEVICE_CONTROL_URL = 'https://app.wave.online/control/devices';
 
 /** Tile-count per layout — single source of truth for renderer + main. */
 export function tilesPerLayout(layout: GridLayout): number {

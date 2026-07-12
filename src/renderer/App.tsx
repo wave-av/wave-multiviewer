@@ -37,9 +37,18 @@ export function App(): React.JSX.Element {
         <span className="text-sm font-semibold tracking-wide">
           <b className="wm">WAVE</b> Multiviewer
         </span>
-        <span className="text-xs text-zinc-500">
-          {state ? `${state.layout} · ${state.tiles.length} tiles` : 'loading'}
-        </span>
+        <div className="flex items-center gap-3" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>
+          <span className="text-xs text-zinc-500">
+            {state ? `${state.layout} · ${state.tiles.length} tiles` : 'loading'}
+          </span>
+          <button
+            type="button"
+            onClick={() => void window.wave.ui.openDeviceControl()}
+            className="min-h-8 rounded border border-zinc-700 px-2 text-xs text-zinc-300 hover:bg-zinc-800"
+          >
+            Device Control
+          </button>
+        </div>
       </header>
       <div className="grid flex-1 grid-cols-[1fr_240px] overflow-hidden">
         <main className="overflow-auto bg-black p-2">
