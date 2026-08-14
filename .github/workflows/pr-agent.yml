@@ -1,6 +1,9 @@
-# pr-agent (OSS) caller — adopts the wave-foundation reusable lane.
-# Engine: OSS Qodo Merge on our OPENAI_KEY (trial-independent). SSOT:
-# wave-foundation/.github/workflows/reusable-pr-agent.yml
+# pr-agent (OSS) — runs OSS PR-Agent on our OPENAI_KEY (trial-independent).
+#
+# This repo is PUBLIC; wave-av/wave-foundation is PRIVATE, and GitHub Actions does NOT allow a public
+# repo to consume a private repo's reusable workflow. So we run the public OSS action directly
+# instead of wave-foundation/.github/workflows/reusable-pr-agent.yml — same constraint as
+# foundation-gate.yml / _checks.yml.
 name: pr-agent (OSS)
 on:
   pull_request:
@@ -19,6 +22,12 @@ concurrency:
 
 jobs:
   pr_agent:
-    uses: wave-av/wave-foundation/.github/workflows/reusable-pr-agent.yml@main
-    secrets:
-      OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+    if: ${{ github.event.sender.type != 'Bot' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Agent action step
+        id: pragent
+        uses: the-pr-agent/pr-agent@f6af7d77554ff8d26adffded077e6461329e92fa # v0.42.0
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
