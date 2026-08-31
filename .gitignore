@@ -23,6 +23,8 @@ resources/dante-activator
 # secrets / credentials (defense-in-depth; primary path is OS secure storage)
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 !.env.example
 *.cookie.txt
 
