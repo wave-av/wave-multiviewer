@@ -1,4 +1,4 @@
-# wave-desktop secrets
+# wave-multiviewer secrets
 
 > **No secret of any kind belongs in this repo. None.** This file documents
 > where each secret lives so contributors don't have to guess.
