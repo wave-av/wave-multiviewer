@@ -4,6 +4,7 @@ on:
     types: [opened, edited]
 permissions:
   contents: read
+  # Required to apply triage labels and comments.
   issues: write
 concurrency:
   group: issue-ops-triage-${{ github.event.issue.number }}
