@@ -30,4 +30,6 @@ index:
     path: TESTING.md
   - family: permissions-contract
     path: PERMISSIONS.md
+  - family: secrets-contract
+    path: SECRETS.md
 ```
