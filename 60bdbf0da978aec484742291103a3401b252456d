@@ -1,0 +1,19 @@
+AGENTS.md
+  s_698bf2658b3146::t_45e4f5a0ae78f2 21-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "60bdbf0da978aec484742291103a3401b252456d",
+  "prompts": {},
+  "sessions": {
+    "s_698bf2658b3146": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "968b7da8-2338-4c75-b96e-b606f0948603",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
