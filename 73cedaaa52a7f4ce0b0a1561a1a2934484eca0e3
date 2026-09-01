@@ -1,0 +1,46 @@
+src/shared/ipc.ts
+  s_157583aa3b6686::t_63626de0f62a7a 50-109,117-118
+src/renderer/styles.css
+  s_157583aa3b6686::t_646a1b4371debb 2-3,6
+src/renderer/global.d.ts
+  s_157583aa3b6686::t_ead5d07379cc38 8-9,21-23
+  s_157583aa3b6686::t_6d5d6dbefc0eef 24
+src/main/ipc.ts
+  s_157583aa3b6686::t_f89186db656c78 76-175
+  s_157583aa3b6686::t_6a83d6e0487d3c 10-12,14-25
+src/renderer/App.tsx
+  s_157583aa3b6686::t_64c111727d3826 37-39
+src/renderer/views/Controls.tsx
+  s_157583aa3b6686::t_b3de0a0085b0ee 1-2
+  s_157583aa3b6686::t_c73c918c3af1ca 73-74,79-164
+  s_157583aa3b6686::t_a6ae058bec08cf 165-167
+tailwind.config.ts
+  s_157583aa3b6686::t_d6f520ddfbfcbc 1-8
+src/preload/index.ts
+  s_157583aa3b6686::t_36fd2f6f0a16f5 8-10
+  s_157583aa3b6686::t_63a5a426665be0 25-36
+src/main/control-plane/crest-envelope.ts
+  s_157583aa3b6686::t_b37c09d4d8abd3 1-40
+src/main/control-plane/crest-envelope.test.ts
+  s_157583aa3b6686::t_f7e5ef9dff5a33 1-36
+package.json
+  s_157583aa3b6686::t_e21f908925702f 29
+package-lock.json
+  s_157583aa3b6686::t_77eecc896e3c66 13,341-346,1462-1499,1643-2637,2639-2642,2645-2648,2650-2652,2654-2657,2660-2663,2666,2668-2675,2678-2681,2684,2686-2693,2696-2699,2701-2716,2719-2724,3115-3123,3566,4012-4046,4340-4351,4782-4793,4840-4848,4989-5004,5135-5140,6240-6248,7233-7241,7938-7959,7972-7987,7998-8066,8516-8525,8745-8750,8884-8926
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.12",
+  "base_commit_sha": "73cedaaa52a7f4ce0b0a1561a1a2934484eca0e3",
+  "prompts": {},
+  "sessions": {
+    "s_157583aa3b6686": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0800e731-23e3-40e5-abec-27e99bf7f8c7",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
