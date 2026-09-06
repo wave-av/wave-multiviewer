@@ -1,0 +1,33 @@
+CHANGELOG.md
+  s_398b04225e3e2a::t_b286ae6422a12d 12-37
+.github/workflows/issue-ops-triage.yml
+  s_398b04225e3e2a::t_53092523c3a222 7,15,20-21
+.github/workflows/pr-agent.yml
+  s_398b04225e3e2a::t_5ec065f2984384 1-342
+.gitignore
+  s_398b04225e3e2a::t_a4c14ac5491056 26-27
+AGENTS.md
+  s_398b04225e3e2a::t_62908b3d991124 1-35
+PERMISSIONS.md
+  s_398b04225e3e2a::t_99bea4f930822f 1-62
+SECRETS.md
+  s_398b04225e3e2a::t_3368099b12d92d 1,44-58
+TESTING.md
+  s_398b04225e3e2a::t_417ce21afd736f 1-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "40af54aab1fc0e372933be116eda61023d39e06a",
+  "prompts": {},
+  "sessions": {
+    "s_398b04225e3e2a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-aaa31329f7da39aa0",
+        "model": "unknown"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
