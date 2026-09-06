@@ -5,6 +5,9 @@ import {
   type MultiviewState,
   type PinProgramRequest,
   type TileSetSourceRequest,
+  CrestResultSchema,
+  type CrestCommand,
+  type CrestResult,
 } from '@shared/ipc';
 
 const wave = {
@@ -18,6 +21,22 @@ const wave = {
       ipcRenderer.invoke(IPC.programPin, req),
     cloudPushStart: (): Promise<MultiviewState> => ipcRenderer.invoke(IPC.cloudPushStart),
     cloudPushStop: (): Promise<MultiviewState> => ipcRenderer.invoke(IPC.cloudPushStop),
+  },
+  ui: {
+    /** Opens the web-always Mesh device-control page in the OS browser. */
+    openDeviceControl: (): Promise<void> => ipcRenderer.invoke(IPC.uiOpenDeviceControl),
+  },
+  crest: {
+    /** Sends a WAVE Device Control Protocol v1 command through the gateway. */
+    control: async (org: string, device: string, command: CrestCommand): Promise<CrestResult> => {
+      const raw = await ipcRenderer.invoke(IPC.crestControl, { org, device, command });
+      return CrestResultSchema.parse(raw);
+    },
+    /** Reads current device state (org-scoped state-track subscribe descriptor). */
+    state: async (org: string, device: string): Promise<CrestResult> => {
+      const raw = await ipcRenderer.invoke(IPC.crestState, { org, device });
+      return CrestResultSchema.parse(raw);
+    },
   },
 } as const;
 

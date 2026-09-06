@@ -5,6 +5,8 @@ import type {
   MultiviewState,
   PinProgramRequest,
   TileSetSourceRequest,
+  CrestCommand,
+  CrestResult,
 } from '@shared/ipc';
 
 interface WaveBridge {
@@ -15,6 +17,13 @@ interface WaveBridge {
     pinProgram(req: PinProgramRequest): Promise<MultiviewState>;
     cloudPushStart(): Promise<MultiviewState>;
     cloudPushStop(): Promise<MultiviewState>;
+  };
+  crest: {
+    control(org: string, device: string, command: CrestCommand): Promise<CrestResult>;
+    state(org: string, device: string): Promise<CrestResult>;
+  };
+  ui: {
+    openDeviceControl(): Promise<void>;
   };
 }
 

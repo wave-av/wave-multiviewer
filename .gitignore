@@ -1,5 +1,5 @@
 # dependencies
-node_modules/
+node_modules
 .pnp.*
 
 # build output
@@ -23,6 +23,8 @@ resources/dante-activator
 # secrets / credentials (defense-in-depth; primary path is OS secure storage)
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 !.env.example
 *.cookie.txt
 
@@ -38,3 +40,13 @@ npm-debug.log*
 
 # test
 coverage/
+
+# >>> wave claude-project-chassis (managed) — do not edit between these markers >>>
+.claude/settings.local.json
+.claude/*.local.json
+.claude/env
+.claude/state/
+.claude/workflows/executions/
+.claude/agent-memory/
+.claude/.DS_Store
+# <<< wave claude-project-chassis (managed) <<<
