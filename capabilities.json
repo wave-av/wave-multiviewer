@@ -12,7 +12,7 @@
   "consumes": {
     "waveProducts": [
       { "repo": "wave-av/api-gateway", "endpoint": "/feed/{slug}" },
-      { "repo": "wave-av/wave-realtime-edge", "endpoint": "/whip" }
+      { "repo": "wave-av/wave-realtime-edge", "endpoint": "/v1/whip/publish" }
     ],
     "thirdParty": [
       { "service": "stun.l.google.com", "licenseGated": false },

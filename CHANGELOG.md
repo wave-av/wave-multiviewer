@@ -4,6 +4,12 @@ All notable changes documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- capabilities.json: corrected the wave-realtime-edge consumed endpoint from the
+  legacy `/whip` path to the versioned WHIP publish path `/v1/whip/publish`
+  (cloud push publishes the multiview; WHEP subscribe goes to api-gateway)
+
 ### Fixed
 
 - `pr-agent` lane: fork-triggered `/` commands are now refused, and the AI
