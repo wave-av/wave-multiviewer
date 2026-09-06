@@ -1,4 +1,4 @@
-# wave-desktop secrets
+# wave-multiviewer secrets
 
 > **No secret of any kind belongs in this repo. None.** This file documents
 > where each secret lives so contributors don't have to guess.
@@ -41,3 +41,18 @@ DAL, NDI Library, NDI Advanced, Dante Activator: fetched at install time
 under the operator's own credentials. Never committed. See `.gitignore`
 patterns under `resources/` for the deny-list and `CONTRIBUTING.md` §
 "License boundary" for the rule.
+
+
+## Machine surface
+
+```yaml secrets-contract
+version: "0.1"
+secrets:
+  - name: SENTRY_AUTH_TOKEN
+    vault: "env:unattributed"
+deny_paths:
+  - ".dev.vars"
+  - ".dev.vars.*"
+  - ".env"
+  - ".env.*"
+```
