@@ -4,7 +4,7 @@
   "description": "On-prem 4x4 / 9x9 / 16x16 multiview receiver for WAVE feeds + LAN NDI sources, with optional WebRTC push to wave-realtime-edge",
   "main": "./out/main/index.js",
   "private": true,
-  "license": "MIT",
+  "license": "Apache-2.0",
   "homepage": "https://wave.online/build",
   "repository": {
     "type": "git",
