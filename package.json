@@ -55,7 +55,7 @@
   "build": {
     "appId": "online.wave.multiviewer",
     "productName": "WAVE Multiviewer",
-    "copyright": "Copyright © 2026 WAVE Online LLC",
+    "copyright": "Copyright © 2026 WAVE Online, LLC",
     "files": ["out/**/*", "package.json"],
     "mac": {
       "category": "public.app-category.video",
