@@ -1,0 +1,19 @@
+.github/dependabot.yml
+  s_49793c5a9de056::t_5a6c81c28d79ac 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "ef22ee8a15188d2119dacdd03e868a44b603ebb4",
+  "prompts": {},
+  "sessions": {
+    "s_49793c5a9de056": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d315ea56-91aa-4d81-9939-eac4eba83179",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
