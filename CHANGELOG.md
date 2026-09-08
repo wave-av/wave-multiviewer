@@ -9,6 +9,9 @@ All notable changes documented here.
 - capabilities.json: corrected the wave-realtime-edge consumed endpoint from the
   legacy `/whip` path to the versioned WHIP publish path `/v1/whip/publish`
   (cloud push publishes the multiview; WHEP subscribe goes to api-gateway)
+- CI: the skill-frontmatter gate now runs on Python 3.14 instead of 3.12
+  (`.github/workflows/_checks.yml`). Toolchain bump only — the gate's own
+  logic is untouched.
 
 ### Fixed
 
