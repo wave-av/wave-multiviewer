@@ -1,0 +1,57 @@
+.github/workflows/_checks.yml
+  s_b9fdae2ba9ed1f::t_68a02d61037f40 23,54,59,114
+.github/workflows/governance-enforce.yml
+  s_b9fdae2ba9ed1f::t_676caeada5e7f1 28
+.github/workflows/issue-ops-triage.yml
+  s_b9fdae2ba9ed1f::t_b5390e80a33e2c 7,15,20-21
+.github/workflows/lint.yml
+  s_b9fdae2ba9ed1f::t_d808979b2dad50 18
+.github/workflows/pr-agent.yml
+  s_b9fdae2ba9ed1f::t_02421ac64b9e39 1-342
+.github/workflows/public-repo-guard.yml
+  s_ea0669f9083146::t_351787d78bfd7a 45
+.gitignore
+  s_b9fdae2ba9ed1f::t_e245c77f5dac56 26-27
+AGENTS.md
+  s_b9fdae2ba9ed1f::t_948603e5596729 1-35
+CHANGELOG.md
+  s_b9fdae2ba9ed1f::t_5343f72baf8510 7-41
+LICENSE
+  s_b9fdae2ba9ed1f::t_129f97da21d1ca 58,140-141,165,174,178-189,202
+PERMISSIONS.md
+  s_b9fdae2ba9ed1f::t_61f6a4926a2106 1-62
+SECRETS.md
+  s_b9fdae2ba9ed1f::t_04b2fec8c5f1c4 1,44-58
+TESTING.md
+  s_b9fdae2ba9ed1f::t_d50f88963cea7d 1-46
+capabilities.json
+  s_b9fdae2ba9ed1f::t_ef0a99e65c528d 15
+package-lock.json
+  s_b9fdae2ba9ed1f::t_bcd86963ac7261 10,29,393-395,620-622,667-669,677-679,753-755,1689-1756,3175-3177,3182-3183,3187,3191-3193,3200-3211,3215-3217,3232-3234,3249-3251,3266-3268,3283-3285,3300-3302,3317-3319,3334-3336,3351-3353,3368-3370,3386-3388,3390,3397-3462,3464-3466,3481-3483,3498-3500,3504-3506,4240-4242,4251,4254-4255,4257-4258,4260-4261,4268,4276-4277,4285,4292-4293,4343-4359,4414-4420,4453-4456,4458-4463,4465,4512-4518,4551-4553,4563-4569,4593-4595,4613-4617,4644-4646,4651,4664-4666,4670-4672,4721-4730,4795-4797,4992-4994,4996,5223-5225,5247-5249,5253-5254,5341-5350,5387-5389,5393-5395,5398,5413-5415,5420-5421,5464-5466,5471-5473,5520-5522,5612-5614,6044-6060,6120-6122,6181-6183,6190-6191,6371-6373,6741-6747,6807-6809,7422-7424,7435-7437,7458-7460,7506-7508,7534-7540,7542-7544,7767-7797,7892-7898,7956-7975,8140-8155,8166-8175,8313-8316,8331-8333,8507-8516,8595-8597,8616-8618,8885-8887,8911-8962,8964-8966,9054-9057,9059,9710-9723
+package.json
+  s_b9fdae2ba9ed1f::t_7ebeebf85f4bf7 7,45,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "38dafa91603da3e91f93cd2f2f1b0d987ea4a601",
+  "prompts": {},
+  "sessions": {
+    "s_b9fdae2ba9ed1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a4a07ffea41c86ba4",
+        "model": "unknown"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    },
+    "s_ea0669f9083146": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ad25373369e17fcd8",
+        "model": "unknown"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
