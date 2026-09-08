@@ -4,6 +4,12 @@ All notable changes documented here.
 
 ## [Unreleased]
 
+### Changed
+
+- CI: the skill-frontmatter gate now runs on Python 3.14 instead of 3.12
+  (`.github/workflows/_checks.yml`). Toolchain bump only — the gate's own
+  logic is untouched.
+
 ### Fixed
 
 - `pr-agent` lane: fork-triggered `/` commands are now refused, and the AI
