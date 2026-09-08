@@ -1,0 +1,57 @@
+.github/workflows/_checks.yml
+  s_b9fdae2ba9ed1f::t_8a79fdeeba7426 23,54,59,114
+.github/workflows/governance-enforce.yml
+  s_b9fdae2ba9ed1f::t_12fec6da2f42b0 28
+.github/workflows/issue-ops-triage.yml
+  s_b9fdae2ba9ed1f::t_6b3b970f4f0398 7,15,20-21
+.github/workflows/lint.yml
+  s_b9fdae2ba9ed1f::t_afc5341fd0f671 18
+.github/workflows/pr-agent.yml
+  s_b9fdae2ba9ed1f::t_efcedc460cd8b6 1-342
+.github/workflows/public-repo-guard.yml
+  s_ea0669f9083146::t_8f587b8cbf896b 45
+.gitignore
+  s_b9fdae2ba9ed1f::t_1509f3fa680af5 26-27
+AGENTS.md
+  s_b9fdae2ba9ed1f::t_e8aa2ffb0d5658 1-35
+CHANGELOG.md
+  s_b9fdae2ba9ed1f::t_34be40f2aefb89 7-41
+LICENSE
+  s_b9fdae2ba9ed1f::t_e250c46d62e562 58,140-141,165,174,178-189,202
+PERMISSIONS.md
+  s_b9fdae2ba9ed1f::t_8442d3d3856b01 1-62
+SECRETS.md
+  s_b9fdae2ba9ed1f::t_e9b155a8ea60fe 1,44-58
+TESTING.md
+  s_b9fdae2ba9ed1f::t_02c5d45b7fc212 1-46
+capabilities.json
+  s_b9fdae2ba9ed1f::t_4efb4b321043a0 15
+package-lock.json
+  s_b9fdae2ba9ed1f::t_a14c64247bdbef 10,29,393-395,620-622,667-669,677-679,753-755,1689-1756,3175-3177,3182-3183,3187,3191-3193,3200-3211,3215-3217,3232-3234,3249-3251,3266-3268,3283-3285,3300-3302,3317-3319,3334-3336,3351-3353,3368-3370,3386-3388,3390,3398,3404,3409,3419,3447,3464-3466,3481-3483,3498-3500,3504-3506,4240-4242,4251,4254-4255,4257-4258,4260-4261,4268,4276-4277,4285,4292-4293,4343-4359,4414-4420,4453-4456,4458-4463,4465,4512-4518,4551-4553,4563-4569,4593-4595,4613-4617,4644-4646,4651,4664-4666,4670-4672,4721-4730,4795-4797,4992-4994,4996,5223-5225,5247-5249,5253-5254,5341-5350,5387-5389,5393-5395,5398,5413-5415,5420-5421,5464-5466,5471-5473,5520-5522,5612-5614,6044-6060,6120-6122,6181-6183,6190-6191,6371-6373,6741-6747,6807-6809,7422-7424,7435-7437,7458-7460,7506-7508,7534-7540,7542-7544,7767-7797,7892-7898,7956-7975,8140-8155,8166-8175,8313-8316,8331-8333,8507-8516,8595-8597,8616-8618,8911-8962,8964-8966,9054-9057,9059,9710-9723
+package.json
+  s_b9fdae2ba9ed1f::t_127188dac4decf 7,45,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "920e3ccf7b32bdab8d22c8e911132770ccb7bf16",
+  "prompts": {},
+  "sessions": {
+    "s_b9fdae2ba9ed1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a4a07ffea41c86ba4",
+        "model": "unknown"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    },
+    "s_ea0669f9083146": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ad25373369e17fcd8",
+        "model": "unknown"
+      },
+      "human_author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
