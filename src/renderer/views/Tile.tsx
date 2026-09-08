@@ -26,6 +26,11 @@ export function Tile({ tile, pinned, enabled, onClick }: Props): React.JSX.Eleme
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const connRef = useRef<FeedConnection | null>(null);
   const [status, setStatus] = useState<'idle' | 'connecting' | 'live' | 'error'>('idle');
+  // `status` only means something while the tile is actually trying to hold a
+  // connection; when it isn't, the tile is idle by definition, so that case is
+  // derived here rather than pushed back into state from the effect below.
+  const isActive = enabled && tile.source.kind === 'wave-feed';
+  const displayStatus = isActive ? status : 'idle';
 
   // (Re)open the connection whenever the source or enabled flag changes.
   useEffect(() => {
@@ -42,13 +47,12 @@ export function Tile({ tile, pinned, enabled, onClick }: Props): React.JSX.Eleme
     };
 
     if (!enabled || tile.source.kind !== 'wave-feed') {
-      setStatus('idle');
       teardown();
       return teardown;
     }
 
-    setStatus('connecting');
     void (async (): Promise<void> => {
+      setStatus('connecting');
       try {
         const url = feedUrlFor(tile.source.kind === 'wave-feed' ? tile.source.feedSlug : '');
         conn = await connectFeed({ feedUrl: url });
@@ -106,11 +110,11 @@ export function Tile({ tile, pinned, enabled, onClick }: Props): React.JSX.Eleme
             autoPlay
             playsInline
             controls={false}
-            className={`absolute inset-0 h-full w-full object-cover ${status === 'live' ? '' : 'opacity-0'}`}
+            className={`absolute inset-0 h-full w-full object-cover ${displayStatus === 'live' ? '' : 'opacity-0'}`}
           />
-          {status !== 'live' ? (
+          {displayStatus !== 'live' ? (
             <div className="grid h-full place-items-center text-[10px] text-zinc-600">
-              {status === 'connecting' ? '…' : status === 'error' ? 'offline' : tile.source.feedSlug}
+              {displayStatus === 'connecting' ? '…' : displayStatus === 'error' ? 'offline' : tile.source.feedSlug}
             </div>
           ) : null}
         </>
