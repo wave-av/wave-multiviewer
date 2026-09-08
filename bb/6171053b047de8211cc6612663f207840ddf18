@@ -1,0 +1,22 @@
+.github/workflows/_checks.yml
+  h_af5ac1a9798224 59
+CHANGELOG.md
+  h_af5ac1a9798224 7-12
+LICENSE
+  h_af5ac1a9798224 189
+package-lock.json
+  h_af5ac1a9798224 29,393-395,620-622,667-669,677-679,5223-5225,6120-6122,6371-6373,7422-7424,7435-7437,7458-7460,7506-7508,8616-8618,8885-8887
+package.json
+  h_af5ac1a9798224 45,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "bb6171053b047de8211cc6612663f207840ddf18",
+  "prompts": {},
+  "humans": {
+    "h_af5ac1a9798224": {
+      "author": "Jake Fineman <jakefineman@gmail.com>"
+    }
+  }
+}
