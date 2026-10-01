@@ -21,10 +21,5 @@
     ],
     "foundationFrameworks": ["frameworks/protocol-plane", "frameworks/platform-registry"]
   },
-  "events": {
-    "publishes": [
-      { "topic": "multiview.tile.connection.failed", "transport": "sentry" }
-    ]
-  },
   "tags": ["operator", "public", "viewer", "grid", "ndi", "dante", "on-prem", "build-on-wave"]
 }
