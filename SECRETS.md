@@ -25,13 +25,11 @@ gateway. The renderer cannot read them — preload exposes presence flags only.
 |---|---|---|
 | `APPLE_ID` / `APPLE_APP_SPECIFIC_PASSWORD` / `APPLE_TEAM_ID` | GitHub Actions org secret | macOS notarization |
 | `CSC_LINK` / `CSC_KEY_PASSWORD` | GitHub Actions org secret | Code-signing certificate |
-| `SENTRY_AUTH_TOKEN` | GitHub Actions repo secret | Symbol upload to wave-online-llc Sentry |
 
 ## Public-facing config (OK to ship)
 
 | Value | Why public is fine |
 |---|---|
-| Sentry DSN | DSNs are designed to be public; abuse is rate-limited by Sentry |
 | OAuth client ID | Public by OAuth design (must be embedded in the client) |
 | Gateway base URL | Production endpoint is `https://api.wave.online` |
 
@@ -47,9 +45,7 @@ patterns under `resources/` for the deny-list and `CONTRIBUTING.md` §
 
 ```yaml secrets-contract
 version: "0.1"
-secrets:
-  - name: SENTRY_AUTH_TOKEN
-    vault: "env:unattributed"
+secrets: []
 deny_paths:
   - ".dev.vars"
   - ".dev.vars.*"
