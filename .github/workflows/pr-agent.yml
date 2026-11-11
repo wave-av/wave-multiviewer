@@ -18,8 +18,10 @@
 # When the reusable lane changes, this changes with it or it lies.
 name: pr-agent (OSS)
 on:
-  pull_request:
-    types: [opened, reopened, ready_for_review, synchronize]
+  # pull_request is intentionally omitted: a same-repo PR runs the PR-head
+  # workflow with repo secrets, so a collaborator could rewrite this file and
+  # inherit OPENAI_KEY. Slash-command reviews use issue_comment, which always
+  # loads this file from the default branch.
   issue_comment:
     types: [created]
 
@@ -190,7 +192,7 @@ jobs:
         uses: The-PR-Agent/pr-agent@f6af7d77554ff8d26adffded077e6461329e92fa # v0.42.0
         continue-on-error: true   # outcome is classified by the verdict step below (#3128)
         env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          OPENAI_KEY: ${{ github.event_name == 'issue_comment' && secrets.OPENAI_KEY || '' }}
           CONFIG__MODEL: "openai/claude-opus-5"
           CONFIG__MODEL_WEAK: "openai/qwen3.7-flash"
           CONFIG__MODEL_REASONING: "openai/claude-sonnet-5"
@@ -240,7 +242,7 @@ jobs:
         # Keep both blocks identical — a drift here silently reviews attempt 2
         # against a different model than attempt 1.
         env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          OPENAI_KEY: ${{ github.event_name == 'issue_comment' && secrets.OPENAI_KEY || '' }}
           CONFIG__MODEL: "openai/claude-opus-5"
           CONFIG__MODEL_WEAK: "openai/qwen3.7-flash"
           CONFIG__MODEL_REASONING: "openai/claude-sonnet-5"

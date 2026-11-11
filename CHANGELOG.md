@@ -15,6 +15,11 @@ All notable changes documented here.
 
 ### Fixed
 
+- `pr-agent` lane no longer runs on `pull_request`. Same-repo pull requests
+  execute the PR-head workflow with repository secrets, so a collaborator
+  could rewrite the workflow and inherit `OPENAI_KEY`. Slash-command `/review`
+  still runs from `issue_comment`, which always loads this file from the
+  default branch, and the key is mapped only on that event.
 - `pr-agent` lane: fork-triggered `/` commands are now refused, and the AI
   call's budget fits inside its step. Three defects, one of them only visible
   once the first was fixed.
